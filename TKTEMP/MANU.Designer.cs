@@ -60,6 +60,7 @@
             this.開啟匯入POS銷售ToolStripMenuItem1.Name = "開啟匯入POS銷售ToolStripMenuItem1";
             this.開啟匯入POS銷售ToolStripMenuItem1.Size = new System.Drawing.Size(170, 22);
             this.開啟匯入POS銷售ToolStripMenuItem1.Text = "開啟匯入POS銷售";
+            this.開啟匯入POS銷售ToolStripMenuItem1.Click += new System.EventHandler(this.開啟匯入POS銷售ToolStripMenuItem1_Click);
             // 
             // 團務ToolStripMenuItem
             // 
@@ -74,6 +75,7 @@
             this.團務作業ToolStripMenuItem.Name = "團務作業ToolStripMenuItem";
             this.團務作業ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.團務作業ToolStripMenuItem.Text = "團務作業";
+            this.團務作業ToolStripMenuItem.Click += new System.EventHandler(this.團務作業ToolStripMenuItem_Click);
             // 
             // MANU
             // 
