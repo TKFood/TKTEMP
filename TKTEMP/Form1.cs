@@ -58,6 +58,7 @@ namespace TKTEMP
         public void DB_SOURCE(string IP,string DBNAME,string ACCOUNT,string PS)
         {
             textBox5.Text = "";
+            string MESS = "";
 
             StringBuilder connectionString = new StringBuilder();
             connectionString.AppendFormat(@"
@@ -69,16 +70,47 @@ namespace TKTEMP
             {
                 try
                 {
-                    connection.Open();               
-
-                    textBox5.Text = "成功 連線";
+                    connection.Open();
+                    MESS = "成功 連線";
+                    textBox5.Text = MESS;
                 }
                 catch (Exception ex)
                 {
-                    textBox5.Text = "失敗 連線:" + ex.Message;
+                    MESS = "失敗 連線:" + ex.Message;
+                    textBox5.Text = MESS;
+                    MessageBox.Show(MESS);
                 }
             }
             
+        }
+
+        public void DB_TARGET(string IP, string DBNAME, string ACCOUNT, string PS)
+        {
+            textBox10.Text = "";
+            string MESS = "";
+
+            StringBuilder connectionString = new StringBuilder();
+            connectionString.AppendFormat(@"
+                                            Data Source={0};Initial Catalog={1};
+                                             Persist Security Info=True;User ID={2};Password={3}
+                                            ", IP, DBNAME, ACCOUNT, PS);
+
+            using (SqlConnection connection = new SqlConnection(connectionString.ToString()))
+            {
+                try
+                {
+                    connection.Open();
+                    MESS = "成功 連線";
+                    textBox10.Text = MESS;
+                }
+                catch (Exception ex)
+                {
+                    MESS = "失敗 連線:" + ex.Message;
+                    textBox10.Text = MESS;
+                    MessageBox.Show(MESS);
+                }
+            }
+
         }
 
         #endregion
@@ -87,6 +119,13 @@ namespace TKTEMP
         {
             DB_SOURCE(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DB_TARGET(textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text);
+        }
         #endregion
+
+
     }
 }
