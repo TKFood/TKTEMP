@@ -28,7 +28,11 @@ namespace TKTEMP
 
         private void 團務作業ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // 建立目標 WinForm 物件
+            frmGROUPSALES frmGROUPSALES = new frmGROUPSALES();
 
+            // 將目標 WinForm 顯示在螢幕上           
+            frmGROUPSALES.Show();
         }
     }
 }
