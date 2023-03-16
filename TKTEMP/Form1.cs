@@ -364,7 +364,7 @@ namespace TKTEMP
                 //AND DOC_NBR  LIKE 'QC1002{0}%'
 
                 sbSql.AppendFormat(@"  
-                                    SELECT  TOP 10 *
+                                    SELECT  *
                                     FROM [COSMOS_POS].[dbo].[POSTA]
                                     WHERE REPLACE(TA001+TA002+TA003+TA006,' ','')  COLLATE Chinese_Taiwan_Stroke_CI_AS NOT IN (SELECT REPLACE(TA001+TA002+TA003+TA006,' ','') FROM  [TK].[dbo].[POSTA]) 
                                     ORDER BY TA001 DESC
@@ -607,7 +607,7 @@ namespace TKTEMP
                 //AND DOC_NBR  LIKE 'QC1002{0}%'
 
                 sbSql.AppendFormat(@"  
-                                    SELECT  TOP 10 *
+                                    SELECT  *
                                     FROM [COSMOS_POS].[dbo].[POSTB]
                                     WHERE REPLACE(TB001+TB002+TB003+TB006+TB007,' ','')  COLLATE Chinese_Taiwan_Stroke_CI_AS NOT IN (SELECT REPLACE(TB001+TB002+TB003+TB006+TB007,' ','') FROM  [TK].[dbo].[POSTB]) 
                                     ORDER BY TB001 DESC
@@ -814,7 +814,7 @@ namespace TKTEMP
                 //AND DOC_NBR  LIKE 'QC1002{0}%'
 
                 sbSql.AppendFormat(@"  
-                                    SELECT  TOP 10 *
+                                    SELECT *
                                     FROM [COSMOS_POS].[dbo].[POSTC]
                                     WHERE REPLACE(TC001+TC002+TC003+TC006+TC007,' ','')  COLLATE Chinese_Taiwan_Stroke_CI_AS NOT IN (SELECT REPLACE(TC001+TC002+TC003+TC006+TC007,' ','') FROM  [TK].[dbo].[POSTC]) 
                                     ORDER BY TC001 DESC
