@@ -26,6 +26,17 @@ using FastReport.Data;
 using TKITDLL;
 using System.Data.OleDb;
 
+
+
+/// <summary>
+///說明
+///做暫時的團務計算
+///這是為了主機資料庫做停機時，可以把各台POS的銷售資料POST、POSTB、POTTC上傳到暫時的資料庫
+///要設定各POS的IP、暫時資料庫的IP
+///設定時時上傳
+/// </summary>
+
+
 namespace TKTEMP
 {
     public partial class Form1 : Form
@@ -47,10 +58,19 @@ namespace TKTEMP
         DataGridViewRow row;
         int result;
 
+        string CHECK_EXECUTE = "N";
 
         public Form1()
         {
             InitializeComponent();
+
+
+            // 設定 Timer 的 Interval 屬性為 60,000 毫秒 (即 60 秒)
+            timer1.Interval = 600*100;
+            // 設定 Timer 的 Enabled 屬性為 true，表示啟用 Timer
+            timer1.Enabled = true;
+            // 設定 Timer 的 Tick 事件的處理函式
+            timer1.Tick += Timer_Tick;
         }
 
         #region FUNCTION
@@ -832,9 +852,21 @@ namespace TKTEMP
             }
         }
 
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if(CHECK_EXECUTE.Equals("Y"))
+            {
+                // 呼叫您要執行的函式 function
+                ADD_TO_DB_POSTA(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text);
+                ADD_TO_DB_POSTB(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text);
+                ADD_TO_DB_POSTC(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text);
 
+            }
+
+        }
 
         #endregion
+
         #region FUNCTION
         private void button1_Click(object sender, EventArgs e)
         {
@@ -852,6 +884,28 @@ namespace TKTEMP
             ADD_TO_DB_POSTC(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text);
 
             MessageBox.Show("完成");
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //按下 啟動同步上傳 後，就改成 上傳中，CHECK_EXECUTE = "Y";
+            //再按一下就回復 啟動同步上傳
+            if (button4.Text.Equals("啟動同步上傳"))
+            {
+                button4.Text = "上傳中";
+                button4.BackColor = Color.Red;
+
+                CHECK_EXECUTE = "Y";
+
+              
+            }
+            else
+            {
+
+                button4.Text = "啟動同步上傳";
+                button4.BackColor = Color.DodgerBlue;
+
+                CHECK_EXECUTE = "N";
+            }
         }
         #endregion
 
