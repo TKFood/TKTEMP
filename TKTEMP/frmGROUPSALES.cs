@@ -20,6 +20,13 @@ using FastReport.Data;
 using TKITDLL;
 using System.Runtime.InteropServices;
 
+/// <summary>
+///此程式是做離線版的團務計算
+///在暫時的主機中，要新增資料庫=TK、TKMK
+///資料庫TK是接收各POS機上傳的銷售資料
+///資料庫TKMK是用POS銷售資料計算團務金額
+/// </summary>
+
 namespace TKTEMP
 {
     public partial class frmGROUPSALES : Form
