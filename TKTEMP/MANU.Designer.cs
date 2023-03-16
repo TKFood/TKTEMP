@@ -73,7 +73,7 @@
             // 團務作業ToolStripMenuItem
             // 
             this.團務作業ToolStripMenuItem.Name = "團務作業ToolStripMenuItem";
-            this.團務作業ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.團務作業ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.團務作業ToolStripMenuItem.Text = "團務作業";
             this.團務作業ToolStripMenuItem.Click += new System.EventHandler(this.團務作業ToolStripMenuItem_Click);
             // 
@@ -84,8 +84,9 @@
             this.ClientSize = new System.Drawing.Size(984, 727);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MANU";
             this.Text = "MANU";
             this.menuStrip1.ResumeLayout(false);
