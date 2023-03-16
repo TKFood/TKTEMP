@@ -25,6 +25,9 @@ using System.Runtime.InteropServices;
 ///在暫時的主機中，要新增資料庫=TK、TKMK
 ///資料庫TK是接收各POS機上傳的銷售資料
 ///資料庫TKMK是用POS銷售資料計算團務金額
+///
+/// 在TK、TKMK中，定序會不同，要加上  COLLATE Chinese_Taiwan_Stroke_BIN
+/// 
 /// </summary>
 
 namespace TKTEMP
@@ -123,7 +126,28 @@ namespace TKTEMP
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            dateTimePicker1.Value = GETDBDATES();
+            textBox121.Text = FINDSERNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
+            comboBox3load();
+            label29.Text = "";
+            label29.Text = "更新時間" + dateTimePicker1.Value.ToString("yyyy/MM/dd HH:mm:ss");
 
+
+            MESSAGESHOW MSGSHOW = new MESSAGESHOW();
+            //鎖定控制項
+            this.Enabled = false;
+            //顯示跳出視窗
+            MSGSHOW.Show();
+
+            SEARCHGROUPSALES(dateTimePicker1.Value.ToString("yyyyMMdd"));
+            SETMONEYS();
+            SEARCHGROUPSALES(dateTimePicker1.Value.ToString("yyyyMMdd"));
+            SETNUMS(dateTimePicker1.Value.ToString("yyyyMMdd"));
+
+            //關閉跳出視窗
+            MSGSHOW.Close();
+            //解除鎖定
+            this.Enabled = true;
         }
         private void frmGROUPSALES_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -213,7 +237,7 @@ namespace TKTEMP
             sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT LTRIM(RTRIM((MI001)))+' '+SUBSTRING(MI002,1,3) AS 'MI001',MI002 FROM [TK].dbo.WSCMI WHERE MI001 LIKE '68%'  AND MI001 COLLATE Chinese_Taiwan_Stroke_BIN NOT IN (SELECT [EXCHANACOOUNT] FROM [TKMK].[dbo].[GROUPSALES] WHERE CONVERT(nvarchar,[CREATEDATES],112)='{0}'  AND [STATUS]='預約接團' ) ORDER BY MI001 ", dateTimePicker1.Value.ToString("yyyyMMdd"));
+            Sequel.AppendFormat(@"SELECT LTRIM(RTRIM((MI001)))+' '+SUBSTRING(MI002,1,3) AS 'MI001',MI002 FROM [TK].dbo.WSCMI WHERE MI001 LIKE '68%'  AND MI001 NOT IN (SELECT [EXCHANACOOUNT] FROM [TKMK].[dbo].[GROUPSALES] WHERE CONVERT(nvarchar,[CREATEDATES],112)='{0}'  AND [STATUS]='預約接團' ) ORDER BY MI001 ", dateTimePicker1.Value.ToString("yyyyMMdd"));
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -1348,7 +1372,7 @@ namespace TKTEMP
                                     SELECT CONVERT(INT,ISNULL(SUM(TB033),0),0) AS 'SALESMMONEYS'
                                     FROM [TK].dbo.POSTA WITH (NOLOCK),[TK].dbo.POSTB WITH (NOLOCK)
                                     WHERE TA001=TB001 AND TA002=TB002 AND TA003=TB003  AND TA006=TB006  
-                                    AND TB010  NOT IN (SELECT [ID] FROM [TKMK].[dbo].[GROUPPRODUCT] WHERE [VALID]='Y' AND [SPLITCAL]='Y')              
+                                    AND TB010   NOT IN (SELECT [ID] FROM [TKMK].[dbo].[GROUPPRODUCT] WHERE [VALID]='Y' AND [SPLITCAL]='Y')              
                                     AND TA009='{0}'
                                     AND TA001='{1}'
                                     AND TA005>='{2}'

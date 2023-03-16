@@ -1082,6 +1082,10 @@
             this.previewControl1.Size = new System.Drawing.Size(964, 508);
             this.previewControl1.TabIndex = 0;
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // frmGROUPSALES
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
